@@ -1,5 +1,6 @@
 version: '3'
 services:
+#maintainer little-tiger-2006 <admiral.xml@qq.com>
 #redis nodes
   master:
     image: redis
