@@ -1,0 +1,84 @@
+version: '3'
+services:
+#redis nodes
+  master:
+    image: redis
+    container_name: redis-master
+    command: redis-server --requirepass redis_pwd  --masterauth redis_pwd  --port 6380
+    volumes:
+      - ./redis/data-master:/data
+    network_mode: "host"
+
+  slave1:
+    image: redis
+    container_name: redis-slave-1
+    command:  redis-server --slaveof localhost 6380 --requirepass redis_pwd --masterauth redis_pwd --port 6381
+    volumes:
+      - ./redis/data-slave-1:/data
+    network_mode: "host"
+    depends_on:
+      - master
+
+  slave2:
+    image: redis
+    container_name: redis-slave-2
+    command: redis-server --slaveof localhost 6380 --requirepass redis_pwd --masterauth redis_pwd --port 6382
+    volumes:
+      - ./redis/data-slave-2:/data
+    network_mode: "host"
+    depends_on:
+      - master
+
+#sentinel nodes   
+  sentinel1:
+    build: ./sentinel
+    environment:
+    - SENTINEL_DOWN_AFTER=5000
+    - SENTINEL_FAILOVER=5000   
+    - SENTINEL_PORT=26380
+    - REDIS_MASTER_PWD=redis_pwd
+    - REDIS_MASTER_PORT=6380
+    - REDIS_MASTER_ADDRESS=localhost
+    container_name: redis-sentinel-1
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf --port 26380  --requirepass redis_pwd
+    network_mode: "host"
+    depends_on:
+      - master
+      - slave1
+      - slave2
+
+  sentinel2:
+    build: ./sentinel
+    environment:
+    - SENTINEL_DOWN_AFTER=5000
+    - SENTINEL_FAILOVER=5000   
+    - SENTINEL_PORT=26381
+    - REDIS_MASTER_PWD=redis_pwd
+    - REDIS_MASTER_PORT=6380
+    - REDIS_MASTER_ADDRESS=localhost
+    container_name: redis-sentinel-2
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf --port 26381  --requirepass redis_pwd
+    network_mode: "host"
+    depends_on:
+      - master
+      - slave1
+      - slave2
+      - sentinel1
+
+  sentinel3:
+    build: ./sentinel
+    environment:
+    - SENTINEL_DOWN_AFTER=5000
+    - SENTINEL_FAILOVER=5000
+    - SENTINEL_PORT=26382      
+    - REDIS_MASTER_PWD=redis_pwd
+    - REDIS_MASTER_PORT=6380
+    - REDIS_MASTER_ADDRESS=localhost
+    container_name: redis-sentinel-3
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf --port 26382  --requirepass redis_pwd
+    network_mode: "host"
+    depends_on:
+      - master
+      - slave1
+      - slave2
+      - sentinel1
