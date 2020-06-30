@@ -1,5 +1,5 @@
 #!/bin/sh
-#maintainer
+#maintainer little-tiger-2006 <admiral.xml@qq.com>
 
 sed -i "s/\$SENTINEL_QUORUM/$SENTINEL_QUORUM/g" /etc/redis/sentinel.conf
 sed -i "s/\$SENTINEL_DOWN_AFTER/$SENTINEL_DOWN_AFTER/g" /etc/redis/sentinel.conf
