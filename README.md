@@ -12,7 +12,7 @@ Redis-sentinel ha deploy using docker-compose with `host mode` & `bridge mode`, 
 ## ideas
 Complete the deployment of redis and sentinel in a compose file.
 
-The example show the redis container mapping 6380、6381、6382、26380、26381、26382 port
+The example show the redis container mapping 6380、6381、6382、26380、26381、26379 port
 
 Verify that the cluster is in effect by following the 2 steps:
 1. Connect to redis master instance ,enter 'info replication', we should be able to see the words `connected_slaves: 2`.
