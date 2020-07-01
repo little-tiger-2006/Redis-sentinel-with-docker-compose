@@ -27,3 +27,4 @@ line 33 & 34. num-other-sentinels:2, in addition there are 2 sentinels.<br/>
 2. if you using `requirepass` set the client access pwd, please ensure usinng the `masterauth` set the replicas replication pwd
 3. In the docker-copose.yml, if you have set the 'requirepass' for  the master, please set the `REDIS_MASTER_PWD` for the master,
    because the master will become a slvae when failover，then it is also need a masterauth
+4. if you are concerned about the number of imageissues, you can use the 'docker build -t sentinel:latest ./sentinel' to build the common sentinel image, and then replace the 'build: ./sentinel' in the docker-compose.yml with 'image: sentinel'.
