@@ -17,9 +17,10 @@ The example show the redis container mapping 6380、6381、6382、26380、26381�
 Verify that the cluster is in effect by following the 2 steps:
 1. Connect to redis master instance ,enter 'info replication', we should be able to see the words `connected_slaves: 2`.
 2. Connect to any of the Sentinel instances,enter 'sentinel master mymaster', go to line 9 & 31 & 33.
-   flags: master indicates master operation, abnormal conditions show s-down, o-down.  (line 9 & 10)
-   num-slaves: detected 2 Slave replica sets. (line 31 & 32)
-   num-other-sentinels: In addition, there are 2 sentinels. (line 33 & 34).
+
+   flags: master indicates master operation, abnormal conditions show s-down, o-down, (line 9 & 10).
+   num-slaves: detected 2 Slave replica sets, (line 31 & 32).
+   num-other-sentinels: In addition, there are 2 sentinels, (line 33 & 34).
    
 ## tip
 1. when redis redis app deploy independence machine， please config the ENV (`REDIS_MASTER_ADDRESS`,`REDIS_MASTER_PORT`) with the  machine ip & bind port.
