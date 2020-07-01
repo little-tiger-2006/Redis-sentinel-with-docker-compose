@@ -17,9 +17,10 @@ The example show the redis container mapping 6380、6381、6382、26380、26381�
 Verify that the cluster is in effect by following the 3 steps:
 1. Connect to redis master instance ,enter 'info replication', we should be able to see the words `'connected_slaves: 2'`.<br/>
 2. Connect to any of the Sentinel instances,enter 'sentinel master mymaster'，find the content in the line below：.<br/>
-line  9 & 10. flags: master, indicates master operation, abnormal conditions show s-down, o-down.<br/>
-line 31 & 32. num-slaves:2 , detected 2 Slave replica sets.<br/>
-line 33 & 34. num-other-sentinels:2, in addition there are 2 sentinels.<br/>
+  line  9 & 10. flags: master, indicates master operation, abnormal conditions show s-down, o-down.<br/>
+  line 31 & 32. num-slaves:2 , detected 2 Slave replica sets.<br/>
+  line 33 & 34. num-other-sentinels:2, in addition there are 2 sentinels.<br/>
+
 3.run the test.sh ，to test the effect of clust.
    
 ## tip
